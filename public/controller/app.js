@@ -4,6 +4,7 @@ import { HomeController } from './HomeController.js';
 import { ProfileController } from './ProfileController.js';
 import { Router } from './Router.js';
 import { loginFirebase, logoutFirebase, createAccount } from './firebase_auth.js';
+import { startspinner, stopspinner } from '../view/util.js';
 
 document.getElementById('appHeader').textContent = "Cloud Web Template!"
 document.title = 'App Template';
@@ -30,10 +31,13 @@ document.forms.loginForm.onsubmit = async function (e) {
     e.preventDefault();// prevent page reload
     const email = e.target.email.value;
     const password = e.target.password.value;
+    startspinner();
     try {
         await loginFirebase(email, password);
+        stopspinner();
         console.log('User logged in', email);
     } catch (e) {
+        
         console.error('Error logging in', e);
         const errorCode = e.code;
         const errorMessage = e.message;
@@ -46,21 +50,25 @@ document.forms.CreateAccountForm.onsubmit = async function (e) {
     e.preventDefault();// prevent page reload
     const email = e.target.email.value;
     const emailConfirm = e.target.emailConfirm.value;
-    const password = e.target.password.value;
+    
     
     if (email !== emailConfirm) {
         alert('Emails do not match');
         return;
     }
+    const password = e.target.password.value;
+    startspinner();
     
     try {
         await createAccount(email, password);
+        stopspinner();
         console.log('Account created', email);
         alert('Account created successfully! Please log in.');
         document.getElementById('createAccountDiv').classList.replace('d-block', 'd-none');
         document.getElementById('loginDiv').classList.replace('d-none', 'd-block');
         document.forms.loginForm.reset();
     } catch (e) {
+        stopspinner();
         console.error('Error creating account', e);
         alert('Account creation failed: ' + e.code + ', ' + e.message);
     }
@@ -69,8 +77,10 @@ document.forms.CreateAccountForm.onsubmit = async function (e) {
 
 //logout button
 document.getElementById('logoutButton').onclick = async function (e) {
+    stopspinner();
     try {
         await logoutFirebase();
+        stopspinner();
         console.log('User logged out');
     } catch (e) {
         console.error('Error logging out', e);
