@@ -7,12 +7,16 @@
   <title>App Title</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <script type="module" src="/controller/app.js"></script>
 </head>
 
 <body>
+  <div class="postion-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    id="loadingScreen">
+  <div class="spinner-border text-primary" role="status" style="width: 100px; height: 100px;"></div>
+  </div>
   <div class="container">
     <h1 id="appHeader" class="text-white text-center bg-primary">App Header</h1>
+    
   </div>
 
   <!--Naviation Menu-->
@@ -41,6 +45,7 @@
 
   <div class="container">
     <div id="loginDiv" class="card p-4 shadow d-block">
+      <h1> Login </h1>
       <form name="loginForm">
         <div class="mb-3">
           <label class="form-label">Email address</label>
@@ -54,7 +59,30 @@
         </div>
         <button type="submit" class="btn btn-primary">Enter</button>
       </form>
-      <button id="gotoCreateAccount" class="btn btn-outline-danger mt-3">Go To Create Account Form</button>
+      <button id="goToCreateAccount" class="btn btn-outline-danger mt-3">Go To Create Account Form</button>
+    </div>
+    <div id="createAccountDiv" class="card p-4 shadow d-none">
+      <h1> Create a New Account </h1>
+    <form name="CreateAccountForm">
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input name="email" type="email" class="form-control" required aria-describedby="emailHelp"
+            placeholder="Enter email" >
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Email</label>
+          <input name="emailConfirm" type="email" class="form-control" required aria-describedby="emailHelp"
+            placeholder="confirm email">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" minlength="6" required
+            placeholder="Enter password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+      <button id="goToLogin" class="btn btn-outline-danger mt-3">Go To Login Form</button>
+      
 
     </div>
   </div>
@@ -65,6 +93,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+  <script type="module" src="/controller/app.js"></script>
 </body>
 
 </html>

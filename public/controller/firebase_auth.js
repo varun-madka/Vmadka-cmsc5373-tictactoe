@@ -2,7 +2,8 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js"
 
 import { app } from './firebase_core.js';
@@ -21,6 +22,10 @@ export async function loginFirebase(email, password) {
 
 export async function logoutFirebase() {
     await signOut(auth);
+}
+
+export async function createAccount(email, password) {
+    await createUserWithEmailAndPassword(auth, email, password);
 }
 
 onAuthStateChanged(auth, user => {
